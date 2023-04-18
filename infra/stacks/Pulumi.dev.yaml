@@ -1,0 +1,11 @@
+config:
+  aws:profile: nuage-dev
+  aws:defaultTags:
+    tags:
+      ENV: dev
+      MAINTAINER: louis@nuage.studio
+      MANAGED_BY: Nuage
+      PROJECT: graphql-poc
+      PROVISIONED_BY: Pulumi
+  aws:allowedAccountIds:
+    - "683449672851"

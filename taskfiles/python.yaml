@@ -1,0 +1,35 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  virtualenv:
+    desc: Creates a Python virtualenv
+    cmds:
+      - python -m venv .venv
+    status:
+      - test -d .venv
+
+  install:
+    desc: Installs Python dependencies via Poetry
+    deps:
+      - virtualenv
+    cmds:
+      - poetry install
+    sources:
+      - pyproject.toml
+      - poetry.lock
+      - poetry.toml
+
+  update:
+    desc: Updates Python dependencies
+    cmds:
+      - poetry update
+
+  cleanup:
+    desc: Cleans up the Python environment
+    cmds:
+      - rm -rf .venv/
+      - rm -rf .pytest_cache/
+      - find . -name __pycache__ -type d -exec rm -rf {} +
+      - rm -rf .task/

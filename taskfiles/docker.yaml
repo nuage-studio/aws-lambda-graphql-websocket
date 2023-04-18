@@ -1,0 +1,20 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  build:
+    desc: Builds the Lambda function's Docker image
+    cmds:
+      - >
+        docker buildx build {{.CONTEXT | default "."}}
+        --file {{.DOCKERFILE | default "Dockerfile"}}
+        --platform {{.PLATFORM | default "linux/arm64"}}
+        {{if .TAG}}--tag {{.TAG}}{{end}}
+        {{if .TARGET}}--target {{.TARGET}}{{end}}
+        {{if .SSH_KEY}}--ssh {{.SSH_KEY}}{{end}}
+
+  explore:
+    desc: Runs a shell inside the Lambda docker image
+    cmds:
+      - docker run -it --rm --platform {{.PLATFORM | default "linux/amd64"}} --entrypoint /bin/bash {{.TAG}}

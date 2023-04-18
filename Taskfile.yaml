@@ -1,0 +1,26 @@
+# https://taskfile.dev
+
+version: "3"
+
+includes:
+  python: taskfiles/python.yaml
+  docker:
+    taskfile: taskfiles/docker.yaml
+    vars:
+      TAG: graphql-poc
+
+tasks:
+  run:
+    aliases: [default]
+    desc: Run the GraphQL server locally
+    cmds:
+      - poetry run uvicorn api.server:app --reload --port 8000
+
+  wscat:
+    desc: Run wscat to connect to a websocket server
+    vars:
+      API_ID: h6jwin0j7e
+      STAGE: dev
+      WEBSOCKET_ENDPOINT: wss://{{.API_ID}}.execute-api.eu-west-1.amazonaws.com/{{.STAGE}}
+    cmds:
+      - wscat --connect {{.WEBSOCKET_ENDPOINT}} --subprotocol graphql-ws

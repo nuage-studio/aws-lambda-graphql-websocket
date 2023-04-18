@@ -1,0 +1,10 @@
+# https://www.pulumi.com/docs/reference/pulumi-yaml/#example-project-file-with-all-possible-attributes
+name: lambda-graphql-subscription-poc
+description: Running a GraphQL subscription in a Lambda function
+stackConfigDir: stacks/
+runtime:
+  name: python
+  options:
+    virtualenv: ../.venv
+config:
+  aws:region: eu-west-1
