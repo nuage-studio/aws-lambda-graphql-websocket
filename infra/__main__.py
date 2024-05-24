@@ -34,6 +34,7 @@ stage = aws.apigatewayv2.Stage(
 repo = aws.ecr.Repository(
     resource_name=SERVICE_NAME,
     name=f"test-{env}",
+    force_delete=True,
 )
 
 auth = aws.ecr.get_authorization_token()
